@@ -1,7 +1,7 @@
 # Личный проект «Типотека» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Фролов](https://up.htmlacademy.ru/nodejs/3/user/31893).
-* Наставник: [Алексей Балесный](https://htmlacademy.ru/profile/id221665).
+* Наставник: [Никита Куцелай](https://htmlacademy.ru/profile/id32750).
 
 ---
 

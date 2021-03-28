@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports.getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -16,22 +16,32 @@ module.exports.shuffle = (someArray) => {
 };
 
 module.exports.formatDate = (date) => {
-  var yyyy = date.getFullYear();
+  const yyyy = date.getFullYear();
 
-  var mm = date.getMonth() + 1;
-  if (mm < 10) mm = '0' + mm;
+  let mm = date.getMonth() + 1;
+  if (mm < 10) {
+    mm = `0` + mm;
+  }
 
-  var dd = date.getDate();
-  if (dd < 10) dd = '0' + dd;
+  let dd = date.getDate();
+  if (dd < 10) {
+    dd = `0` + dd;
+  }
 
-  var hh = date.getHours();
-  if (hh < 10) hh = '0' + hh;
+  let hh = date.getHours();
+  if (hh < 10) {
+    hh = `0` + hh;
+  }
 
-  var MM = date.getMinutes();
-  if (MM < 10) MM = '0' + MM;
+  let MM = date.getMinutes();
+  if (MM < 10) {
+    MM = `0` + MM;
+  }
 
-  var ss = date.getSeconds();
-  if (ss < 10) ss = '0' + ss;
+  let ss = date.getSeconds();
+  if (ss < 10) {
+    ss = `0` + ss;
+  }
 
   return `${yyyy}-${mm}-${dd} ${hh}:${MM}:${ss}`;
 };
