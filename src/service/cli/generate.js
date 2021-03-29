@@ -1,11 +1,12 @@
 'use strict';
+const chalk = require(`chalk`);
 
 const {
   getRandomInt,
   shuffle,
   formatDate
 } = require(`../../utils`);
-const fs = require(`fs`);
+const fs = require(`fs`).promises;
 
 
 const FILE_NAME = `mocks.json`;
@@ -13,7 +14,7 @@ const FILE_NAME = `mocks.json`;
 const MOCKS_COUNT = {
   DEFAULT: 1,
   MAX: 1000,
-}
+};
 
 const TITLES = [
   `Ёлки. История деревьев`,
@@ -66,13 +67,13 @@ const CATEGORIES = [
 ];
 
 const getCreatedDate = () => {
-  var createDate = new Date();
+  const createDate = new Date();
 
   createDate.setDate(createDate.getDate() - getRandomInt(0, 90));
   createDate.setHours(getRandomInt(0, 24), getRandomInt(0, 60), getRandomInt(0, 60));
-  
+
   return formatDate(createDate);
-}
+};
 
 const generatePublications = (count) => (
   Array(count).fill({}).map(() => ({
@@ -86,23 +87,22 @@ const generatePublications = (count) => (
 
 module.exports = {
   name: `--generate`,
-  run(args) {
+  async run(args) {
     const [count] = args;
     const countPublications = Number.parseInt(count, 10) || MOCKS_COUNT.DEFAULT;
 
     if (countPublications > MOCKS_COUNT.MAX) {
-      console.error(`Не больше 1000 публикаций`);
+      console.error(chalk.red(`Не больше 1000 публикаций`));
       process.exit(1);
     }
 
     const content = JSON.stringify(generatePublications(countPublications));
 
-    fs.writeFile(FILE_NAME, content, (err) => {
-      if (err) {
-        return console.error(`Can't write data to file...`);
-      }
-
-      return console.info(`Operation success. File created.`);
-    });
+    try {
+      await fs.writeFile(FILE_NAME, content);
+      console.log(chalk.green(`Operation success. File created.`));
+    } catch (err) {
+      console.error(chalk.red(`Can't write data to file...`));
+    }
   }
-}
+};
