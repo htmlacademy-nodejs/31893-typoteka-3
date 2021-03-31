@@ -1,5 +1,6 @@
 'use strict';
 const chalk = require(`chalk`);
+const path = require(`path`);
 
 const {
   getRandomInt,
@@ -8,9 +9,9 @@ const {
 } = require(`../../utils`);
 const fs = require(`fs`).promises;
 
-const FILE_SENTENCES_PATH = `./data/sentences.txt`;
-const FILE_TITLES_PATH = `./data/titles.txt`;
-const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+const FILE_SENTENCES_PATH = `../../../data/sentences.txt`;
+const FILE_TITLES_PATH = `../../../data/titles.txt`;
+const FILE_CATEGORIES_PATH = `../../../data/categories.txt`;
 const FILE_NAME = `mocks.json`;
 
 const MOCKS_COUNT = {
@@ -20,8 +21,8 @@ const MOCKS_COUNT = {
 
 const readContent = async (filePath) => {
   try {
-    const content = await fs.readFile(filePath, `utf8`);
-    return content.split(`\n`);
+    const content = await fs.readFile(path.join(__dirname, filePath), `utf8`);
+    return content.split(`\n`).filter((item) => item.trim() !== ``);
   } catch (err) {
     console.error(chalk.red(err));
     return [];
