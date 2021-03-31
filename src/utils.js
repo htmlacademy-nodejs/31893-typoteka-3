@@ -18,30 +18,11 @@ module.exports.shuffle = (someArray) => {
 module.exports.formatDate = (date) => {
   const yyyy = date.getFullYear();
 
-  let mm = date.getMonth() + 1;
-  if (mm < 10) {
-    mm = `0` + mm;
-  }
-
-  let dd = date.getDate();
-  if (dd < 10) {
-    dd = `0` + dd;
-  }
-
-  let hh = date.getHours();
-  if (hh < 10) {
-    hh = `0` + hh;
-  }
-
-  let MM = date.getMinutes();
-  if (MM < 10) {
-    MM = `0` + MM;
-  }
-
-  let ss = date.getSeconds();
-  if (ss < 10) {
-    ss = `0` + ss;
-  }
+  const mm = (date.getMonth() + 1).toString().padStart(2, `0`);
+  const dd = date.getDate().toString().padStart(2, `0`);
+  const hh = date.getHours().toString().padStart(2, `0`);
+  const MM = date.getMinutes().toString().padStart(2, `0`);
+  const ss = date.getSeconds().toString().padStart(2, `0`);
 
   return `${yyyy}-${mm}-${dd} ${hh}:${MM}:${ss}`;
 };
