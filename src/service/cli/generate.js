@@ -3,6 +3,10 @@ const chalk = require(`chalk`);
 const path = require(`path`);
 
 const {
+  FILE_NAME,
+} = require(`../../constants`);
+
+const {
   getRandomInt,
   shuffle,
   formatDate
@@ -12,7 +16,6 @@ const fs = require(`fs`).promises;
 const FILE_SENTENCES_PATH = `../../../data/sentences.txt`;
 const FILE_TITLES_PATH = `../../../data/titles.txt`;
 const FILE_CATEGORIES_PATH = `../../../data/categories.txt`;
-const FILE_NAME = `mocks.json`;
 
 const MOCKS_COUNT = {
   DEFAULT: 1,
