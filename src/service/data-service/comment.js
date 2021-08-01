@@ -7,35 +7,38 @@ const {
 } = require(`../../constants`);
 
 class CommentService {
-  constructor(offers) {
-    this._offers = offers;
+  constructor(articles) {
+    this._articles = articles;
   }
 
-  create(offer, comment) {
+  create(article, comment) {
     const newComment = {id: nanoid(MAX_ID_LENGTH), text: comment.text};
-    offer.comments.push(newComment);
+    article.comments.push(newComment);
 
-    this._offers = this._offers.filter((item) => item.id !== offer.id).push(offer);
+    this._articles = this._articles.filter((item) => item.id !== article.id);
+    this._articles.push(article);
 
     return newComment;
   }
 
-  drop(commmentId, offerId) {
-    const offer = this._offers.find((item) => item.id === offerId);
-    const comment = offer.comments.find((item) => item.id === commmentId);
+  drop(commmentId, articleId) {
+    const article = this._articles.find((item) => item.id === articleId);
+    const comment = article.comments.find((item) => item.id === commmentId);
 
     if (!comment) {
       return null;
     }
 
-    offer.comments = offer.comments.filter((item) => item.id !== commmentId);
+    article.comments = article.comments.filter((item) => item.id !== commmentId);
 
-    this._offers = this._offers.filter((item) => item.id !== offerId).push(offer);
+    this._articles = this._articles.filter((item) => item.id !== article.id);
+    this._articles.push(article);
+
     return comment;
   }
 
-  findAll(offerId) {
-    return this._offers.find((item) => item.id === offerId).comments;
+  findAll(articleId) {
+    return this._articles.find((item) => item.id === articleId).comments;
   }
 }
 
