@@ -6,9 +6,9 @@ const articleValidator = require(`../middlewares/article-validator`);
 const articleExist = require(`../middlewares/article-exist`);
 const commentValidator = require(`../middlewares/comment-validator`);
 
-const route = new Router();
-
 module.exports = (app, articleService, commentService) => {
+  const route = new Router();
+
   app.use(`/articles`, route);
 
   route.get(`/`, async (req, res) => {
@@ -67,7 +67,7 @@ module.exports = (app, articleService, commentService) => {
 
     const comments = await commentService.findAll(articleId);
 
-    res.status(HttpCode.OK)
+    return res.status(HttpCode.OK)
       .json(comments);
   });
 
