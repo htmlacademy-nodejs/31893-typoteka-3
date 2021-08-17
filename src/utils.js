@@ -26,3 +26,5 @@ module.exports.formatDate = (date) => {
 
   return `${yyyy}-${mm}-${dd} ${hh}:${MM}:${ss}`;
 };
+
+module.exports.ensureArray = (value) => Array.isArray(value) ? value : [value];
