@@ -26,12 +26,12 @@ CREATE TABLE articles(
 
 CREATE TABLE comments(
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  offer_id integer NOT NULL,
+  article_id integer NOT NULL,
   user_id integer NOT NULL,
   text text NOT NULL,
   created_at timestamp DEFAULT current_timestamp,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (offer_id) REFERENCES offers(id)
+  FOREIGN KEY (article_id) REFERENCES articles(id)
 );
 
 CREATE TABLE articles_categories(
