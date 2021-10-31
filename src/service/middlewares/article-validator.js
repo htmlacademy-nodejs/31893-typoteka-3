@@ -2,7 +2,7 @@
 
 const {HttpCode} = require(`../../constants`);
 
-const articleKeys = [`category`, `title`, `announce`, `publucationDate`];
+const articleKeys = [`categories`, `title`, `announce`, `publicationDate`];
 const TextLimit = {
   MAX: 250,
   MIN: 30,
@@ -14,8 +14,8 @@ const isValidTextLength = (text, min = 0, max = Infinity) => {
   return textLength > min && textLength < max;
 };
 
-const isCategoryEmpty = (category) => {
-  return !(category && category.length);
+const isCategoriesEmpty = (categories) => {
+  return !(categories && categories.length);
 };
 
 module.exports = (req, res, next) => {
@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
     !isValidTextLength(newArticle.title, TextLimit.MIN, TextLimit.MAX) ||
     !isValidTextLength(newArticle.announce, TextLimit.MIN, TextLimit.MAX) ||
     !isValidTextLength(newArticle.fullText, 0, TextLimit.FULL_TEXT_MAX) ||
-    isCategoryEmpty(newArticle.category)
+    isCategoriesEmpty(newArticle.categories)
   ) {
     return res.status(HttpCode.BAD_REQUEST)
       .send(`Bad request`);
