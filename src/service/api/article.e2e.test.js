@@ -93,7 +93,7 @@ const createAPI = async () => {
     article(app, new ArticleService(mockDB), new CommentService(mockDB));
     return app;
   } catch (e) {
-    return console.log(111111, e);
+    return console.log(`createAPI error`, e);
   }
 };
 
@@ -113,6 +113,25 @@ describe(`API returns a list of all articles`, () => {
   test(
       `First article's title equals "Лучше рок-музыканты 20-века"`,
       () => expect(response.body[0].title).toBe(`Лучше рок-музыканты 20-века`)
+  );
+});
+
+describe(`API returns a part of articles from offset`, () => {
+  let response;
+
+  beforeAll(async () => {
+    const app = await createAPI();
+    response = await request(app)
+      .get(`/articles?offset=1&limit=2`);
+  });
+
+  test(`Status code 200`, () => expect(response.statusCode).toBe(HttpCode.OK));
+
+  test(`Returns a total count articles`, () => expect(response.body.count).toBe(3));
+  test(`Returns a list of 2 articles`, () => expect(response.body.articles.length).toBe(2));
+  test(
+      `First article's id equals 2`,
+      () => expect(response.body.articles[0].id).toBe(2)
   );
 });
 

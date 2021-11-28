@@ -6,6 +6,7 @@ const USER_ARGV_INDEX = 2;
 const FILE_NAME = `mocks.json`;
 
 const MAX_ID_LENGTH = 6;
+const ARTICLES_PER_PAGE = 8;
 const API_PREFIX = `/api`;
 
 const ExitCode = {
@@ -38,6 +39,7 @@ const Env = {
 module.exports = {
   FILE_NAME,
   MAX_ID_LENGTH,
+  ARTICLES_PER_PAGE,
   API_PREFIX,
   HttpCode,
   HttpMethod,
