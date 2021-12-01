@@ -21,8 +21,8 @@ class API {
     }
   }
 
-  getArticles({withComments} = {}) {
-    return this._load(`/articles`, {params: {withComments}});
+  getArticles({offset, limit, withComments} = {}) {
+    return this._load(`/articles`, {params: {offset, limit, withComments}});
   }
 
   // TODO вероятно понадобится такая ручка. Или надо будет обрабатывать параметр прямо в ручке /articles

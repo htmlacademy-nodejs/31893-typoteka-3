@@ -72,6 +72,29 @@ class ArticleService {
     return await this._Article.findOne(options);
   }
 
+  async findPage({limit, offset, withComments}) {
+    const options = {
+      limit,
+      offset,
+      include: [Aliase.CATEGORIES],
+      order: [
+        [`createdAt`, `DESC`]
+      ],
+      distinct: true
+    };
+
+    if (withComments) {
+      options.include.push(Aliase.COMMENTS);
+      options.order.push([
+        {model: this._Comment, as: Aliase.COMMENTS}, `createdAt`, `DESC`
+      ]);
+    }
+
+    const {count, rows} = await this._Article.findAndCountAll(options);
+
+    return {count, articles: rows};
+  }
+
   async update(id, article) {
     const [affectedRows] = await this._Article.update(article, {
       where: {id}

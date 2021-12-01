@@ -45,10 +45,11 @@ const COMMENTS_COUNT = {
   MAX: 4,
 };
 
-const PICTIRE_RESTRICT = {
-  MIN: 1,
-  MAX: 9,
-};
+const PICTIRE_NAMES = [
+  `skyscraper`,
+  `sea`,
+  `forest`
+];
 
 const readContent = async (filePath) => {
   try {
@@ -60,11 +61,10 @@ const readContent = async (filePath) => {
   }
 };
 
-const getPictureFileName = (pictureNumber) => {
-  if (pictureNumber < 10) {
-    pictureNumber = `0${pictureNumber}`;
-  }
-  return `item${pictureNumber}.jpg`;
+const getPictureFileName = () => {
+  const pictureName = PICTIRE_NAMES[getRandomInt(0, PICTIRE_NAMES.length - 1)];
+
+  return `${pictureName}@2x.jpg`;
 };
 
 const getCreatedDate = () => {
@@ -107,7 +107,7 @@ const generateArticles = (count, titles, categories, sentences, comments, userCo
     createdDate: getCreatedDate(),
     announce: shuffle(sentences).slice(getRandomInt(1, 5), 5).join(` `),
     fullText: shuffle(sentences).slice(1, getRandomInt(1, sentences.length - 1)).join(` `),
-    picture: getPictureFileName(getRandomInt(PICTIRE_RESTRICT.MIN, PICTIRE_RESTRICT.MAX)),
+    picture: getPictureFileName(),
     categories: getRandomSubarray(categories),
     comments: generateComments(getRandomInt(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX), index + 1, userCount, comments),
     userId: getRandomInt(1, userCount)
